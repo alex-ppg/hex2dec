@@ -87,6 +87,7 @@ function convertBase(str, fromBase, toBase) {
 }
 
 function decToHex(decStr, opts) {
+  if (/^0+$/.test(decStr)) return hidePrefix ? "0" : "0x0";
   var hidePrefix = opts && opts.prefix === false;
   var hex = convertBase(decStr, 10, 16);
   return hex ? (hidePrefix ? hex : '0x' + hex) : null;
@@ -94,6 +95,7 @@ function decToHex(decStr, opts) {
 
 function hexToDec(hexStr) {
   if (hexStr.substring(0, 2) === '0x') hexStr = hexStr.substring(2);
+  if (/^0+$/.test(hexStr)) return "0";
   hexStr = hexStr.toLowerCase();
   return convertBase(hexStr, 16, 10);
 }
